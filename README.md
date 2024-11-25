@@ -42,7 +42,7 @@ This project was built as part of a recruitment task for Storyteller. The soluti
 
    ```bash
    git clone git@github.com:WSarkhan/nba-clips.git
-   cd storyteller-takehome.git
+   cd nba-clips
    ```
 
 2. Install dependencies:

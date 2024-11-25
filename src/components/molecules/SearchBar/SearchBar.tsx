@@ -1,39 +1,35 @@
 import { SelectInput } from "../../atoms";
 import { MultiValue, SingleValue } from "react-select";
 
+interface Suggestion {
+  label: string;
+  value: string;
+}
+
 interface SearchFormProps {
-  teamSuggestions: { label: string; value: string }[];
-  playerSuggestions: { label: string; value: string }[];
+  teamSuggestions: Suggestion[];
+  playerSuggestions: Suggestion[];
   favoriteTeam: string | null;
   followedTeams: string[];
   followedPlayers: string[];
-  onSubmit: () => void;
   onFavoriteTeamChange: (value: string | null) => void;
   onFollowedTeamsChange: (values: string[]) => void;
   onFollowedPlayersChange: (values: string[]) => void;
-  isLoading: boolean;
 }
 
-export const SearchForm = ({
+export const SearchBar = ({
   teamSuggestions,
   playerSuggestions,
   favoriteTeam,
   followedTeams,
   followedPlayers,
-  onSubmit,
   onFavoriteTeamChange,
   onFollowedTeamsChange,
   onFollowedPlayersChange,
 }: SearchFormProps) => {
   return (
-    <form
-      onSubmit={(e) => {
-        e.preventDefault();
-        onSubmit();
-      }}
-      className="mb-8 bg-gray-800 p-6 rounded-lg shadow-lg max-w-lg mx-auto"
-    >
-      <h2 className="text-2xl font-semibold mb-4">Search Clips</h2>
+    <div className="max-w-lg p-6 mx-auto mb-8 bg-gray-800 rounded-lg shadow-lg">
+      <h2 className="mb-4 text-2xl font-semibold">Search Clips</h2>
       <div className="flex flex-col gap-4">
         <SelectInput
           options={teamSuggestions}
@@ -42,8 +38,7 @@ export const SearchForm = ({
           }
           onChange={(option) =>
             onFavoriteTeamChange(
-              (option as SingleValue<{ label: string; value: string }>)
-                ?.value || null
+              (option as SingleValue<Suggestion>)?.value || null
             )
           }
           placeholder="Favorite Team"
@@ -56,9 +51,7 @@ export const SearchForm = ({
           )}
           onChange={(options) =>
             onFollowedTeamsChange(
-              (options as MultiValue<{ label: string; value: string }>).map(
-                (opt) => opt.value
-              )
+              (options as MultiValue<Suggestion>).map((opt) => opt.value)
             )
           }
           placeholder="Followed Teams"
@@ -71,15 +64,13 @@ export const SearchForm = ({
           )}
           onChange={(options) =>
             onFollowedPlayersChange(
-              (options as MultiValue<{ label: string; value: string }>).map(
-                (opt) => opt.value
-              )
+              (options as MultiValue<Suggestion>).map((opt) => opt.value)
             )
           }
           placeholder="Followed Players"
           isMulti
         />
       </div>
-    </form>
+    </div>
   );
 };

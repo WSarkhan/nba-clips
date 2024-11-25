@@ -1,29 +1,5 @@
-export interface Category {
-  type: string;
-  displayTitle: string;
-  externalId: string;
-}
-
-export interface Clip {
-  id: string;
-  description: string;
-  thumbnailUrl: string;
-  url: string;
-  duration: number;
-  likeCountDisplay: string;
-  shareCountDisplay: string;
-  clipCategories: Category[];
-  deepLink: string;
-}
-
-export interface ClipCardProps {
-  clip: Clip;
-  onMouseEnter: (id: string) => void;
-  onMouseLeave: () => void;
-  onClick: (id: string) => void;
-  hoveredClipId: string | null;
-  onShare: (url: string) => void;
-}
+import { ClipCardProps } from "../../../types";
+import { ClipButton } from "../../atoms";
 
 export const ClipCard = ({
   clip,
@@ -35,7 +11,7 @@ export const ClipCard = ({
 }: ClipCardProps) => {
   return (
     <li
-      className="relative bg-gray-800 rounded-lg shadow-lg overflow-hidden group"
+      className="relative overflow-hidden bg-gray-800 rounded-lg shadow-lg group"
       onMouseEnter={() => onMouseEnter(clip.id)}
       onMouseLeave={onMouseLeave}
       onClick={() => onClick(clip.id)}
@@ -50,39 +26,35 @@ export const ClipCard = ({
             loop
             controls
             controlsList="nodownload"
-            className="w-full h-full object-cover transition-opacity duration-300"
+            className="object-cover w-full h-full transition-opacity duration-300"
           />
         ) : (
           <img
             src={clip.thumbnailUrl}
             alt={clip.description}
-            className="w-full h-full object-cover transition-opacity duration-300"
+            className="object-cover w-full h-full transition-opacity duration-300"
           />
         )}
       </div>
-      <div className="absolute top-4 left-4 text-xl font-bold">
+      <p className="absolute text-xl font-bold top-4 left-4">
         {clip.description}
-      </div>
+      </p>
       {hoveredClipId !== clip.id && (
-        <div className="absolute bottom-4 left-4 text-gray-300">
+        <p className="absolute text-gray-300 bottom-4 left-4">
           {clip.duration}s
-        </div>
+        </p>
       )}
-      <div className="absolute bottom-20 right-0 flex flex-col items-center gap-4 p-1">
-        <div className="flex-col flex items-center gap-1">
-          <span className="material-icons text-red-800">favorite</span>
-          <span>{clip.likeCountDisplay}</span>
-        </div>
-        <button
-          onClick={(e) => {
-            e.stopPropagation();
-            onShare(clip.deepLink);
-          }}
-          className="flex-col flex items-center gap-1 text-white hover:text-blue-400 transition"
-        >
-          <span className="material-icons">share</span>
-          <span>{clip.shareCountDisplay}</span>
-        </button>
+      <div className="absolute right-0 flex flex-col items-center gap-4 p-1 bottom-20">
+        <ClipButton
+          icon="favorite"
+          label={clip.likeCountDisplay}
+          isButton={false}
+        />
+        <ClipButton
+          icon="share"
+          label={clip.shareCountDisplay}
+          onClick={() => onShare(clip.deepLink)}
+        />
       </div>
     </li>
   );

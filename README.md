@@ -51,10 +51,11 @@ This project was built as part of a recruitment task for Storyteller. The soluti
    yarn
    ```
 
-3. create a .env file in the root folder and add the secret key as
+3. create a .env file in the root folder and add the secret key and api as
 
    ```bash
    VITE_SECRET_KEY=your_api_key
+   VITE_API_URL=your_api_url
    ```
 
 4. Start the development server:

@@ -41,7 +41,7 @@ This project was built as part of a recruitment task for Storyteller. The soluti
 1. Clone the repository:
 
    ```bash
-   git clone git@github.com:WSarkhan/storyteller-takehome.git
+   git clone git@github.com:WSarkhan/nba-clips.git
    cd storyteller-takehome.git
    ```
 

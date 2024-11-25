@@ -28,6 +28,12 @@ This project was built as part of a recruitment task for Storyteller. The soluti
   - Toast messages for feedback, such as sharing a clip link.
 - **Error Handling**: Displays user-friendly error messages if the API fails.
 
+## Technologies used 
+
+- [Vite](https://vite.dev/guide/)
+- [Tailwind CSS](https://tailwindcss.com/docs/installation)
+- [React](https://react.dev/learn)
+
 ## Setup Instructions
 
 ### Prerequisites

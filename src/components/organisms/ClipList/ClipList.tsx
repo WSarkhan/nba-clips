@@ -1,4 +1,5 @@
-import { Clip, ClipCard } from "../../molecules";
+import { Clip } from "../../../types";
+import { ClipCard } from "../../molecules";
 
 interface ClipListProps {
   clips: Clip[];

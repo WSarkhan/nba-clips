@@ -1,7 +1,6 @@
 import axios from "axios";
 
-const API_URL =
-  "https://api.usestoryteller.com/api/app/clips/opening-week-fire-moments/clips";
+const API_URL = import.meta.env.VITE_API_URL;
 
 export const fetchClips = async (
   params: Record<string, string | undefined>

@@ -1,10 +1,8 @@
 import { useState, useEffect } from "react";
 import { useFetchData } from "../../../hooks/useFetchData";
-import { SearchForm } from "../../molecules";
+import { SearchBar } from "../../molecules";
 import { ClipList } from "../../organisms/ClipList/ClipList";
-import { Toast } from "../../atoms";
-import NBALogo from "../../atoms/NBALogo/NBALogo";
-import BasketballLoader from "../../atoms/BasketballLoader/BasketBallLoader";
+import { BouncingLoader, Header, Toast } from "../../atoms";
 
 export const HomePage = () => {
   const [favoriteTeam, setFavoriteTeam] = useState<string | null>(null);
@@ -47,29 +45,22 @@ export const HomePage = () => {
   }, [fetchData]);
 
   return (
-    <div className="bg-gray-900 text-white min-h-screen md:p-6 p-3 pt-5">
+    <div className="min-h-screen p-3 pt-5 text-white bg-gray-900 md:p-6">
       <div className="container mx-auto">
-        <div className="flex justify-center items-center mb-8">
-          <NBALogo />
-          <h1 className="text-4xl font-bold text-center">NBA Clips Viewer</h1>
-        </div>
-        <SearchForm
+        <Header headerText="NBA Clips Viewer" />
+        <SearchBar
           teamSuggestions={teamSuggestions}
           playerSuggestions={playerSuggestions}
           favoriteTeam={favoriteTeam}
           followedTeams={followedTeams}
           followedPlayers={followedPlayers}
-          onSubmit={fetchData}
           onFavoriteTeamChange={setFavoriteTeam}
           onFollowedTeamsChange={setFollowedTeams}
           onFollowedPlayersChange={setFollowedPlayers}
-          isLoading={loading}
         />
-
-        {error && <p className="text-red-500 text-center mb-6">{error}</p>}
-
+        {error && <p className="mb-6 text-center text-red-500">{error}</p>}
         {loading ? (
-          <BasketballLoader />
+          <BouncingLoader />
         ) : (
           <ClipList
             clips={data.clips || []}
@@ -80,11 +71,9 @@ export const HomePage = () => {
             onShare={handleShare}
           />
         )}
-
         {toastMessage && <Toast message={toastMessage} />}
-
         {!loading && !error && (!data.clips || data.clips.length === 0) && (
-          <p className="text-center text-gray-500 mt-6">
+          <p className="mt-6 text-center text-gray-500">
             No clips available. Try updating your search.
           </p>
         )}
